@@ -27,6 +27,7 @@ class Team(object):
         self.schedule = []
         self.scores = []
         self.outcomes = []
+        self.won_games = []
         self.mov = []
         self._fetch_schedule(schedule)
         self._fetch_roster(roster)
@@ -51,18 +52,21 @@ class Team(object):
                     score = matchup['away']['totalPoints']
                     opponentId = matchup['home']['teamId']
                     self.outcomes.append(matchup['winner'])
+                    self.won_games.append(matchup['winner'] == "AWAY")
                     self.scores.append(score)
                     self.schedule.append(opponentId)
                 elif matchup['home']['teamId'] == self.team_id:
                     score = matchup['home']['totalPoints']
                     opponentId = matchup['away']['teamId']
                     self.outcomes.append(matchup['winner'])
+                    self.won_games.append(matchup['winner'] == "HOME")
                     self.scores.append(score)
                     self.schedule.append(opponentId)
             elif matchup['home']['teamId'] == self.team_id:
                 score = matchup['home']['totalPoints']
                 opponentId = matchup['home']['teamId']
                 self.outcomes.append(matchup['winner'])
+                self.won_games.append(matchup['winner'] == "HOME")
                 self.scores.append(score)
                 self.schedule.append(opponentId)
     
